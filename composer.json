@@ -1,0 +1,45 @@
+{
+    "name": "webklex/php-geoip",
+    "type": "library",
+    "description": "PHP GeoIP client",
+    "keywords": [
+        "webklex",
+        "geoip",
+        "php-geoip",
+        "ip"
+    ],
+    "homepage": "https://github.com/webklex/php-geoip",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Malte Goldenbaum",
+            "email": "github@webklex.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "ext-curl": "*",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Webklex\\GeoIP\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
