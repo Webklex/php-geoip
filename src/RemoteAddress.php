@@ -113,7 +113,7 @@ class RemoteAddress {
             return $ip_address;
         }
 
-        $ip_address = $_SERVER["REMOTE_ADDR"];
+        $ip_address = $this->getServerVariable("REMOTE_ADDR");
 
         if(strlen($ip_address) < 7) {
             $ip_address = "127.0.0.1";
@@ -131,18 +131,18 @@ class RemoteAddress {
      */
     protected function getIpAddressFromProxy() {
         if (!$this->useProxy
-            || ($_SERVER['REMOTE_ADDR'] != null && !in_array($_SERVER['REMOTE_ADDR'], $this->trustedProxies))
+            || ($this->getServerVariable('REMOTE_ADDR') != null && !in_array($this->getServerVariable('REMOTE_ADDR'), $this->trustedProxies))
         ) {
             return false;
         }
 
         $header = $this->proxyHeader;
-        if (!isset($_SERVER[$header])) {
+        if (!$this->getServerVariable($header)) {
             return false;
         }
 
         // Extract IPs
-        $ips = explode(',', $_SERVER[$header]);
+        $ips = explode(',', $this->getServerVariable($header));
         // trim, so we can compare against trusted proxies properly
         $ips = array_map('trim', $ips);
         // remove trusted proxy IPs
@@ -180,6 +180,14 @@ class RemoteAddress {
         return $header;
     }
 
+    protected function getServerVariable($key, $default = null){
+        if (!isset($_SERVER[$key]) || empty($_SERVER[$key])) {
+            return $default;
+        }
+
+        return $_SERVER[$key];
+    }
+
     /**
      * @return bool
      */
@@ -210,7 +218,7 @@ class RemoteAddress {
         ];
 
         foreach($test_HTTP_proxy_headers as $header){
-            if (isset($_SERVER[$header]) && !empty($_SERVER[$header])) {
+            if ($this->getServerVariable($header, false)) {
                 return true;
             }
         }
