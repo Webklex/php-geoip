@@ -6,7 +6,7 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Hits][ico-hits]][link-hits]
 
- 
+
 ## Description
 PHP-GeoIP provides you with the ability to gather open source ip intelligence by using the open api provided by [GoGeoIP](https://github.com/Webklex/gogeoip).
 
